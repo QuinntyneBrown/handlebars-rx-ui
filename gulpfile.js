@@ -53,7 +53,7 @@ gulp.task("webpack", ['remove-compiled-js'], function () {
     return gulp.src('src/main.ts')
     .pipe(webpack({
         output: {
-            library: "angularRxUI"
+            library: "hru"
         },
         resolve: {
             extensions: ["", ".js", ".ts"]

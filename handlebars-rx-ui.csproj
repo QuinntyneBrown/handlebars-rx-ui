@@ -75,6 +75,8 @@
     <Content Include="gulpfile.js" />
     <Content Include="packages.config" />
     <Content Include="package.json" />
+    <Content Include="typings.json" />
+    <Content Include="tsconfig.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -89,13 +91,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="src\components\shared\index.ts" />
+    <TypeScriptCompile Include="node_modules\rx\ts\rx.all.d.ts" />
+    <TypeScriptCompile Include="src\components\card\index.ts" />
+    <TypeScriptCompile Include="src\framework\bootstrap.ts" />
+    <TypeScriptCompile Include="src\framework\component.ts" />
+    <TypeScriptCompile Include="src\framework\dispatcher.ts" />
+    <TypeScriptCompile Include="src\framework\guid.ts" />
+    <TypeScriptCompile Include="src\framework\index.ts" />
+    <TypeScriptCompile Include="src\framework\local-storage-manager.ts" />
+    <TypeScriptCompile Include="src\framework\store.ts" />
     <TypeScriptCompile Include="src\main.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="lib\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
