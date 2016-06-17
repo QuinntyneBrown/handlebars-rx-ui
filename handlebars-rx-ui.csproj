@@ -74,10 +74,48 @@
   <ItemGroup>
     <Content Include="dist\handlebars.rx.ui.js" />
     <Content Include="gulpfile.js" />
+    <Content Include="lib\components\article\article-container.component.html">
+      <DependentUpon>article-container.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\article\article-container.component.scss">
+      <DependentUpon>article-container.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\article\article.component.html">
+      <DependentUpon>article.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\article\article.component.scss">
+      <DependentUpon>article.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\gallery\gallery.component.html">
+      <DependentUpon>gallery.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\gallery\gallery.component.scss">
+      <DependentUpon>gallery.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\popover\popover.component.html">
+      <DependentUpon>popover.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\popover\popover.component.scss">
+      <DependentUpon>popover.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\social-share\social-share.component.html">
+      <DependentUpon>social-share.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\social-share\social-share.component.scss">
+      <DependentUpon>social-share.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\video-player\video-player.component.html">
+      <DependentUpon>video-player.component.ts</DependentUpon>
+    </Content>
+    <Content Include="lib\components\video-player\video-player.component.scss">
+      <DependentUpon>video-player.component.ts</DependentUpon>
+    </Content>
     <Content Include="packages.config" />
     <Content Include="package.json" />
     <Content Include="typings.json" />
     <Content Include="tsconfig.json" />
+    <Content Include="lib\sass\normalize.scss" />
+    <Content Include="lib\sass\breakpoints.scss" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -86,8 +124,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="vendor\bluebird.core.js" />
-    <Content Include="vendor\bluebird.js" />
+    <Content Include="vendor\es6-promise.js" />
     <Content Include="vendor\fastclick.js" />
     <Content Include="vendor\handlebars.js" />
     <Content Include="vendor\rx.all.compat.js" />
@@ -97,10 +134,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="lib\components\card\index.ts" />
+    <TypeScriptCompile Include="lib\components\shared\debounce.ts" />
+    <TypeScriptCompile Include="lib\components\shared\get-x.ts" />
+    <TypeScriptCompile Include="lib\components\shared\rectangle.ts" />
+    <TypeScriptCompile Include="lib\components\shared\ruler.ts" />
+    <TypeScriptCompile Include="lib\components\shared\space.ts" />
+    <TypeScriptCompile Include="lib\components\shared\translate-x-async.ts" />
+    <TypeScriptCompile Include="lib\components\shared\translate-x.ts" />
     <TypeScriptCompile Include="lib\store\index.d.ts" />
     <TypeScriptCompile Include="lib\store\index.ts" />
     <TypeScriptCompile Include="lib\main.ts" />
+    <TypeScriptCompile Include="lib\components\article\article-container.component.ts" />
+    <TypeScriptCompile Include="lib\components\article\article.component.ts" />
+    <TypeScriptCompile Include="lib\components\gallery\gallery.component.ts" />
+    <TypeScriptCompile Include="lib\components\social-share\social-share.component.ts" />
+    <TypeScriptCompile Include="lib\components\video-player\video-player.component.ts" />
+    <TypeScriptCompile Include="lib\components\popover\popover.component.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

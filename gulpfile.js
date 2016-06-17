@@ -25,8 +25,7 @@ var libs = [
     paths.npm + 'rx/dist/rx.all.compat.js',
     paths.npm + 'fastclick/lib/fastclick.js',
     paths.npm + 'moment/moment.js',
-    paths.npm + 'bluebird/js/browser/bluebird.js',
-    paths.npm + 'bluebird/js/browser/bluebird.core.js',
+    paths.npm + 'es6-promise/dist/es6-promise.js',
     paths.npm + 'handlebars/dist/handlebars.js'
 ];
 

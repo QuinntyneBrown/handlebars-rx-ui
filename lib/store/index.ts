@@ -78,7 +78,6 @@ export class Store<T> extends Rx.BehaviorSubject<T> {
         state.lastTriggeredByActionId = action.id;
         state.lastTriggeredByAction = action;
         state.lastTriggeredByActionType = (action as any).constructor.type;
-        
         return state;
     }
     
