@@ -72,6 +72,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="dist\handlebars.rx.ui.js" />
     <Content Include="gulpfile.js" />
     <Content Include="packages.config" />
     <Content Include="package.json" />
@@ -85,29 +86,26 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="vendor\bluebird.core.js" />
+    <Content Include="vendor\bluebird.js" />
+    <Content Include="vendor\fastclick.js" />
+    <Content Include="vendor\handlebars.js" />
+    <Content Include="vendor\rx.all.compat.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="node_modules\rx\ts\rx.all.d.ts" />
-    <TypeScriptCompile Include="src\components\card\index.ts" />
-    <TypeScriptCompile Include="src\framework\bootstrap.ts" />
-    <TypeScriptCompile Include="src\framework\component.ts" />
-    <TypeScriptCompile Include="src\framework\dispatcher.ts" />
-    <TypeScriptCompile Include="src\framework\guid.ts" />
-    <TypeScriptCompile Include="src\framework\index.ts" />
-    <TypeScriptCompile Include="src\framework\local-storage-manager.ts" />
-    <TypeScriptCompile Include="src\framework\store.ts" />
-    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="lib\components\card\index.ts" />
+    <TypeScriptCompile Include="lib\store\index.d.ts" />
+    <TypeScriptCompile Include="lib\store\index.ts" />
+    <TypeScriptCompile Include="lib\main.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="lib\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

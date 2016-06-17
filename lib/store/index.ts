@@ -1,4 +1,6 @@
-﻿export default class LocalStorageManager {
+﻿/// <reference path="../../node_modules/rx/ts/rx.all.d.ts" />
+
+class LocalStorageManager {
     constructor() {
         try {
             window.onbeforeunload = () => localStorage.setItem(this.id, JSON.stringify(this.items))
@@ -58,3 +60,36 @@
         this._items = [];
     }
 }
+
+export class Store<T> extends Rx.BehaviorSubject<T> {
+    constructor(initialState: T,
+        private localStorageManager: LocalStorageManager, public reducers: any[]) {
+        super(initialState || {} as T);
+        this.state = initialState || {} as T;
+    }
+
+    dispatch = (action) => {
+        this.state = this.state || this.localStorageManager.get({ name: "state"}) || {} as T;
+        this.state = this.setLastTriggeredByActionId(this.state, action);
+        for (var i = 0; i < this.reducers.length; i++) {
+            this.state = this.reducers[i](this.state, action);
+        }
+        this.localStorageManager.put({ name: "state", value: this.state });
+        this.onNext(this.state);
+    }
+
+    setLastTriggeredByActionId = (state, action) => {
+        state.lastTriggeredByActionId = action.id;
+        state.lastTriggeredByAction = action;
+        state.lastTriggeredByActionType = (action as any).constructor.type;
+        
+        return state;
+    }
+    
+    state: T;
+}
+
+
+var store = new Store(null, null, []);
+
+

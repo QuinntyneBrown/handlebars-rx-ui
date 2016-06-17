@@ -1,8 +1,9 @@
 ﻿/// <binding AfterBuild='libs' Clean='clean' />
+/// <reference path="node_modules/bluebird/js/browser/bluebird.js" />
+/// <reference path="node_modules/bluebird/js/browser/bluebird.core.js" />
 
 var gulp = require("gulp");
 var concat = require('gulp-concat');
-var Config = require('./gulpfile.config');
 var karma = require("gulp-karma");
 var gulpUtil = require("gulp-util");
 var webpack = require("gulp-webpack");
@@ -13,47 +14,45 @@ var child_process = require("child_process");
 var tsc = require('gulp-typescript');
 var sourcemaps = require('gulp-sourcemaps');
 
-var config = new Config();
 
 var paths = {
     npm: './node_modules/',
-    lib: './lib/'
+    vendor: './vendor/'
 };
 
 var libs = [
-    paths.npm + 'angular/angular.js',
-    paths.npm + 'angular-route/angular-route.js',
-    paths.npm + 'angular-sanitize/angular-sanitize.js',
-    paths.npm + 'angular-touch/angular-touch.js',
     paths.npm + 'jquery/dist/jquery.js',
     paths.npm + 'rx/dist/rx.all.compat.js',
     paths.npm + 'fastclick/lib/fastclick.js',
-    paths.npm + 'moment/moment.js'
+    paths.npm + 'moment/moment.js',
+    paths.npm + 'bluebird/js/browser/bluebird.js',
+    paths.npm + 'bluebird/js/browser/bluebird.core.js',
+    paths.npm + 'handlebars/dist/handlebars.js'
 ];
 
 
 gulp.task("typedoc", function () {
-    child_process.exec("typedoc --out ./docs/ ./wwwroot/ --module commonjs --jsx react --experimentalDecorators --ignoreCompilerErrors --exclude node_module");
+    child_process.exec("typedoc --out ./docs/ ./lib/ --module commonjs --experimentalDecorators --ignoreCompilerErrors --exclude node_module");
 });
 
-gulp.task('libs', function () {
-    return gulp.src(libs).pipe(gulp.dest(paths.lib));
+gulp.task('vendor', function () {
+    return gulp.src(libs).pipe(gulp.dest(paths.vendor));
 });
 
 gulp.task('remove-compiled-js', function () {
-    return gulp.src(["./src/**/*.js", "./src/**/*.js.map"], { read: false })
+    return gulp.src(["./lib/**/*.js", "./lib/**/*.js.map"], { read: false })
     .pipe(clean());
 });
 
 gulp.task('clean', function (callback) {
-    rimraf(paths.lib, callback);
+    rimraf(paths.vendor, callback);
 });
 
 gulp.task("webpack", ['remove-compiled-js'], function () {
-    return gulp.src('src/main.ts')
+    return gulp.src('lib/main.ts')
     .pipe(webpack({
         output: {
-            library: "hru"
+            library: "ui"
         },
         resolve: {
             extensions: ["", ".js", ".ts"]
@@ -76,18 +75,17 @@ gulp.task("webpack", ['remove-compiled-js'], function () {
             ]
         }
     }))
-    .pipe(rename("components.js"))
+    .pipe(rename("handlebars.rx.ui.js"))
     .pipe(gulp.dest('dist/'));
 });
 
 gulp.task('run-unit-tests', ['compile-ts-tests'], function () {
     return gulp.src([
-        './lib/fastclick.js',
-        './lib/rx.all.compat.js',
-        './lib/angular-touch.js',
-        './node_modules/angular-mocks/angular-mocks.js',
-        './dist/components.js',
-        './test/components.spec.js'
+        './vendor/fastclick.js',
+        './venodor/rx.all.compat.js',
+        './venodor/handlebars.js',
+        './dist/handlebars.rx.ui.js',
+        './test/handlebars.rx.ui.spec.js'
     ])
         .pipe(karma({
             configFile: 'karma.conf.js',
@@ -102,7 +100,7 @@ gulp.task('run-unit-tests', ['compile-ts-tests'], function () {
 
 gulp.task('compile-ts-tests', ['remove-compiled-js'], function () {
     var sourceTsFiles = [config.appTypeScriptReferences,
-                        './src/**/*.spec.ts'];
+                        './lib/**/*.spec.ts'];
 
     var tsResult = gulp.src(sourceTsFiles)
                        .pipe(tsc({
@@ -112,15 +110,15 @@ gulp.task('compile-ts-tests', ['remove-compiled-js'], function () {
                        }));
 
     return tsResult.js
-        .pipe(concat('components.spec.js'))
+        .pipe(concat('handlebars.rx.ui.spec.js'))
         .pipe(gulp.dest('./test/'));
 });
 
 
 gulp.task('watch', function () {
     gulp.watch([
-        './src/**/*.ts', './src/**/*.html', './src/**/*.css', './src/**/*.scss'
-    ], ['remove-compiled-js', 'webpack', 'run-unit-tests']);
+        './lib/**/*.ts', './lib/**/*.html', './lib/**/*.css', './lib/**/*.scss'
+    ], ['remove-compiled-js', 'webpack']);
 });
 
-gulp.task('default', ['remove-compiled-js', 'libs', 'webpack', 'run-unit-tests', 'watch']);
+gulp.task('default', ['remove-compiled-js', 'vendor', 'webpack', 'watch']);
