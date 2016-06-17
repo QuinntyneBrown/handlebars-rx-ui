@@ -1,16 +1,12 @@
 ﻿/// <reference path="../../node_modules/rx/ts/rx.all.d.ts" />
 
-class LocalStorageManager {
-    constructor() {
+export class LocalStorageManager {
+    constructor(private id: string = "2fcfe918-dc2c-42db-9e88-ee62417651de") {
         try {
             window.onbeforeunload = () => localStorage.setItem(this.id, JSON.stringify(this.items))
-        } catch (e) {
-
-        }
+        } catch (e) { }
     }
-
-    private id = "2fcfe918-dc2c-42db-9e88-ee62417651de";
-
+    
     private _items = null;
 
     private get items() {
@@ -89,7 +85,5 @@ export class Store<T> extends Rx.BehaviorSubject<T> {
     state: T;
 }
 
-
-var store = new Store(null, null, []);
 
 
