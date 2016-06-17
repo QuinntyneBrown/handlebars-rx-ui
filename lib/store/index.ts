@@ -6,7 +6,7 @@ export class LocalStorageManager {
             window.onbeforeunload = () => localStorage.setItem(this.id, JSON.stringify(this.items))
         } catch (e) { }
     }
-    
+
     private _items = null;
 
     private get items() {
@@ -59,16 +59,16 @@ export class LocalStorageManager {
 
 export class Store<T> extends Rx.BehaviorSubject<T> {
     constructor(initialState: T,
-        private localStorageManager: LocalStorageManager, public reducers: any[]) {
+        private localStorageManager: LocalStorageManager, public reducers: Array<Function>) {
         super(initialState || {} as T);
         this.state = initialState || {} as T;
     }
 
     dispatch = (action) => {
-        this.state = this.state || this.localStorageManager.get({ name: "state"}) || {} as T;
+        this.state = this.state || this.localStorageManager.get({ name: "state" }) || {} as T;
         this.state = this.setLastTriggeredByActionId(this.state, action);
         for (var i = 0; i < this.reducers.length; i++) {
-            this.state = this.reducers[i](this.state, action);
+            this.state = this.reducers[i].call(null, this.state, action);
         }
         this.localStorageManager.put({ name: "state", value: this.state });
         this.onNext(this.state);
@@ -78,9 +78,10 @@ export class Store<T> extends Rx.BehaviorSubject<T> {
         state.lastTriggeredByActionId = action.id;
         state.lastTriggeredByAction = action;
         state.lastTriggeredByActionType = (action as any).constructor.type;
+
         return state;
     }
-    
+
     state: T;
 }
 
